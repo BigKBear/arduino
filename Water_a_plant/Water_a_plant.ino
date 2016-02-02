@@ -5,13 +5,24 @@
 
 #define SECOND 1000L
 #define MINUTE (60*SECOND)
-#define HOUR (60*MINUTE
+#define HOUR (60*MINUTE)
+
+int motorSwitchPin = 12;
+int sensorSwitch = 11;
+
+float sensorValue1=0;
+float sensorValue2=0;
+float sensorValue3=0;
+
+float averageValue =0;
+float sensorOutput = 0;
 
 void setup(){
-  
+  pinMode(motorSwitchPin, OUTPUT);
 }
 
 void loop(){
+  float averageValue=0;
   //moisture check
   averageValue = moistureCheck();
 
@@ -23,24 +34,26 @@ wetPlant();
 wetPlant();
   }
 
-//delay 24 hours
-delay(12*HOUR);
-delay(12*HOUR);
+  //delay 24 hours
+  delay(12*HOUR);
+  delay(12*HOUR);
 }
 
 void wetPlant(){
+  digitalRead(motorSwitchPin);
   //wet for 5 seconds 
     //turn on motor
     int speed = map(250, 0 , 1023, 0, 255);
-analogWrite(motorSwitch, speed);
+analogWrite(motorSwitchPin, speed);
 
     //stop motor after 5 seconds
     delay(5*SECOND);
-analogWrite(motorSwitch,LOW);
+analogWrite(motorSwitchPin,LOW);
 
 }
 
 float moistureCheck(){
+  float averageValue=0;
       //turn on sensor    
     digitalWrite(sensorSwitch, HIGH);
     delay(5*SECOND);
